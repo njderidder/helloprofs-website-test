@@ -30,7 +30,7 @@
                     keyframes: {
                         scroll: {
                             '0%': { transform: 'translateX(0)' },
-                            '100%': { transform: 'translateX(-100%)' },
+                            '100%': { transform: 'translateX(-50%)' },
                         },
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
@@ -57,6 +57,7 @@
             border-top: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             transition: all 0.3s ease;
+            overflow: hidden;
         }
 
         .glass-panel:hover {
@@ -127,8 +128,14 @@
     <nav class="fixed w-full z-50 top-0 left-0 bg-[#050911]/80 backdrop-blur-xl border-b border-white/5">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="w-8 h-8 bg-hpBlue rounded-full flex items-center justify-center font-bold text-white">h</div>
-                <span class="font-display font-bold text-xl tracking-tight text-white">helloprofs.nl</span>
+                <!-- LOGO: Zorg dat je een bestand 'logo.png' uploadt voor linksboven! -->
+                <div class="flex items-center gap-2">
+                    <img src="logo.png" class="h-10 w-auto" alt="Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                    <div class="hidden flex items-center gap-2">
+                        <div class="w-8 h-8 bg-hpBlue rounded-full flex items-center justify-center font-bold text-white">h</div>
+                        <span class="font-display font-bold text-xl tracking-tight text-white">helloprofs.nl</span>
+                    </div>
+                </div>
             </div>
             
             <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
@@ -189,8 +196,8 @@
                 <div class="absolute -inset-4 bg-gradient-to-r from-hpBlue to-hpOrange rounded-full blur-3xl opacity-20"></div>
                 <div class="laptop-frame mx-auto max-w-lg w-full">
                     <div class="laptop-screen">
-                        <!-- Bestandsnaam 1: De laptop screenshot -->
-                        <img src="oplossing-wet-DBA-voor-opdrachtgevers-en-opdrachtnemers.png" class="w-full h-full object-cover" alt="Helloprofs Dashboard">
+                        <!-- MATCH MET GITHUB: laptop-image.png -->
+                        <img src="laptop-image.png" class="w-full h-full object-cover" alt="Helloprofs Dashboard">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#050911]/60 to-transparent pointer-events-none"></div>
                     </div>
                 </div>
@@ -199,22 +206,27 @@
         </div>
     </header>
 
-    <!-- CLIENT LOGO CAROUSEL -->
-    <div class="w-full border-y border-white/5 bg-white/[0.02] py-8 overflow-hidden">
-        <div class="flex w-[200%] animate-scroll gap-16 items-center">
-            <!-- Logos -->
-            <img src="Koole-Bestratingen-logo.png" class="h-12 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
-            <img src="AW-groep-logo.png" class="h-12 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
-            <img src="MNE-logo.png" class="h-12 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
-            <img src="MdB-Transport-logo.png" class="h-12 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
-            <img src="Van-Dijk-Fiscaal-Advies-logo.png" class="h-12 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
-            <img src="Logo-TK-Advocaten-Notarissen.jpg" class="h-12 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition mix-blend-screen">
+    <!-- CLIENT LOGO CAROUSEL (NAADLOZE LOOP) -->
+    <div class="w-full border-y border-white/5 bg-white/[0.02] py-8 overflow-hidden relative">
+        <div class="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#050911] to-transparent z-10"></div>
+        <div class="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#050911] to-transparent z-10"></div>
+
+        <div class="flex w-max animate-scroll gap-16 items-center">
+            <!-- SET 1 - Exacte namen uit je screenshot -->
+            <img src="Koole-Bestratingen-logo.png" class="h-10 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
+            <img src="logo-aw.png" class="h-10 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
+            <img src="MNE-logo.png" class="h-10 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
+            <img src="MdB-Transport-logo.png" class="h-10 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
+            <img src="Van-Dijk-Fiscaal-Advies-logo.png" class="h-10 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
+            <img src="Logo-TK-Advocaten-Notarissen.jpg" class="h-10 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition rounded">
             
-            <!-- Herhaling voor loop -->
-            <img src="Koole-Bestratingen-logo.png" class="h-12 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
-            <img src="AW-groep-logo.png" class="h-12 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
-            <img src="MNE-logo.png" class="h-12 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
-            <img src="MdB-Transport-logo.png" class="h-12 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
+            <!-- SET 2 (DUPLICAAT VOOR DE LOOP) -->
+            <img src="Koole-Bestratingen-logo.png" class="h-10 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
+            <img src="logo-aw.png" class="h-10 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
+            <img src="MNE-logo.png" class="h-10 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
+            <img src="MdB-Transport-logo.png" class="h-10 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
+            <img src="Van-Dijk-Fiscaal-Advies-logo.png" class="h-10 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
+            <img src="Logo-TK-Advocaten-Notarissen.jpg" class="h-10 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition rounded">
         </div>
     </div>
 
@@ -233,17 +245,17 @@
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="glass-panel p-8 rounded-3xl">
                     <div class="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center text-2xl mb-4">💰</div>
-                    <h3 class="text-xl font-bold mb-2">Werkgeverslasten</h3>
+                    <h3 class="text-xl font-bold mb-2 text-white">Werkgeverslasten</h3>
                     <p class="text-gray-400 text-sm">Naheffing werknemerspremies, loonheffingen en pensioenafdrachten.</p>
                 </div>
                 <div class="glass-panel p-8 rounded-3xl border-hpOrange/40">
                     <div class="w-12 h-12 bg-hpOrange/20 rounded-full flex items-center justify-center text-2xl mb-4">⚠️</div>
-                    <h3 class="text-xl font-bold mb-2">Directe Boetes</h3>
+                    <h3 class="text-xl font-bold mb-2 text-white">Directe Boetes</h3>
                     <p class="text-gray-400 text-sm">Opgelegde boetes en correctieverplichtingen vanuit de Belastingdienst.</p>
                 </div>
                 <div class="glass-panel p-8 rounded-3xl">
                     <div class="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center text-2xl mb-4">⚖️</div>
-                    <h3 class="text-xl font-bold mb-2">Arbeidsrechtelijk</h3>
+                    <h3 class="text-xl font-bold mb-2 text-white">Arbeidsrechtelijk</h3>
                     <p class="text-gray-400 text-sm">Gevolgen zoals verplichte doorbetaling bij ziekte en ontslagbescherming.</p>
                 </div>
             </div>
@@ -262,69 +274,80 @@
             <div class="grid grid-cols-1 md:grid-cols-6 md:grid-rows-2 gap-6 md:h-[600px]">
                 
                 <!-- DOSSIERS (Large) -->
-                <div class="md:col-span-4 glass-panel rounded-3xl p-8 relative overflow-hidden group">
-                    <div class="relative z-10 max-w-sm">
-                        <h3 class="text-2xl font-bold mb-2 text-white">Complete dossiers</h3>
-                        <p class="text-gray-400 text-sm">Inkoopopdrachten, offertes en facturen in één dossiernummer.</p>
+                <div class="md:col-span-4 glass-panel rounded-3xl relative group">
+                    <div class="absolute inset-0 z-0">
+                        <!-- MATCH MET GITHUB: Homepage-Complete-dossiers.png -->
+                        <img src="Homepage-Complete-dossiers.png" class="w-full h-full object-cover opacity-60 transition group-hover:scale-105 group-hover:opacity-90" alt="Dossiers">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0B1221] via-[#0B1221]/60 to-transparent"></div>
                     </div>
-                    <div class="absolute bottom-[-10%] right-[-5%] w-[60%] transition group-hover:scale-105">
-                        <!-- Dossier Image -->
-                        <img src="Homepage-Complete-dossiers-7rofqdko1rkw39e40.png" class="rounded-lg shadow-2xl" alt="Dossiers">
+                    <div class="relative z-10 p-8 h-full flex flex-col justify-end">
+                        <h3 class="text-2xl font-bold mb-2 text-white">Complete dossiers</h3>
+                        <p class="text-gray-300 text-sm max-w-md">Inkoopopdrachten, offertes en facturen in één dossiernummer. Altijd klaar voor controle.</p>
                     </div>
                 </div>
 
                 <!-- CONTRACTEN (Tall) -->
-                <div class="md:col-span-2 md:row-span-2 glass-panel rounded-3xl p-8 flex flex-col items-center text-center relative overflow-hidden">
-                    <h3 class="text-2xl font-bold mb-4">Solide Contracten</h3>
+                <div class="md:col-span-2 md:row-span-2 glass-panel rounded-3xl p-8 flex flex-col items-center text-center relative overflow-hidden group">
+                    <h3 class="text-2xl font-bold mb-4 text-white">Solide Contracten</h3>
                     <p class="text-gray-400 text-sm mb-6">Automatisch gegenereerde contracten conform wet DBA.</p>
-                    <!-- Contract Image -->
-                    <img src="Homepage-Solide-contractvorming-xm3p0ybz90zmwg.png" class="w-3/4 shadow-2xl rounded-lg absolute bottom-0 transition hover:-translate-y-2" alt="Contract">
+                    <div class="flex-grow w-full relative">
+                        <!-- MATCH MET GITHUB: Homepage-Solide-contractvorming.png -->
+                        <img src="Homepage-Solide-contractvorming.png" class="w-full h-full object-contain object-bottom transition group-hover:scale-105" alt="Contract">
+                    </div>
                 </div>
 
                 <!-- ANALYSE (Small) -->
-                <div class="md:col-span-2 glass-panel rounded-3xl p-6 flex items-center gap-4 group">
-                    <!-- Analyse Image -->
-                    <img src="Homepage-fiscaal-juridische-analyse-hckpew1cafouvgds.png" class="w-16 h-16 object-contain" alt="Weegschaal">
+                <div class="md:col-span-2 glass-panel rounded-3xl p-6 flex flex-row items-center gap-6 group hover:bg-white/5 transition">
+                    <!-- MATCH MET GITHUB: Homepage-fiscaal-juridische-analyse.png -->
+                    <img src="Homepage-fiscaal-juridische-analyse.png" class="w-16 h-16 object-contain" alt="Weegschaal">
                     <div>
-                        <h3 class="font-bold text-white">Fiscale Analyse</h3>
-                        <p class="text-xs text-gray-400">Directe check op arbeidsrelatie.</p>
+                        <h3 class="font-bold text-white text-lg">Fiscale Analyse</h3>
+                        <p class="text-sm text-gray-400">Directe check op arbeidsrelatie.</p>
                     </div>
                 </div>
 
                 <!-- STAPPEN (Small) -->
-                <div class="md:col-span-2 glass-panel rounded-3xl p-6 flex items-center gap-4 bg-hpBlue/20 border-hpOrange/30">
-                    <!-- Stappen Image -->
-                    <img src="Homepage-Zet-aantoonbare-stappen-xm3p0ybz90zmwg.png" class="w-16 h-16 object-contain" alt="Trap">
+                <div class="md:col-span-2 glass-panel rounded-3xl p-6 flex flex-row items-center gap-6 bg-hpBlue/20 border-hpOrange/30">
+                    <!-- MATCH MET GITHUB: Homepage-Zet-aantoonbare-stappen.png -->
+                    <img src="Homepage-Zet-aantoonbare-stappen.png" class="w-16 h-16 object-contain" alt="Trap">
                     <div>
-                        <h3 class="font-bold text-hpOrange">Zet stappen</h3>
-                        <p class="text-xs text-gray-300">Toon aan dat je compliant bent.</p>
+                        <h3 class="font-bold text-hpOrange text-lg">Zet stappen</h3>
+                        <p class="text-sm text-gray-300">Toon aan dat je compliant bent.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CARROUSEL SCREENS (Jouw 4 screenshots) -->
-    <section class="py-10 bg-black/20 overflow-hidden">
-        <div class="text-center mb-8"><span class="text-gray-500 text-sm uppercase tracking-widest">Het Platform</span></div>
-        <div class="flex w-[200%] animate-scroll gap-8">
-            <!-- Let op de %20 voor spaties -->
-            <img src="carrousel%20scherm1.png" class="h-64 rounded-lg shadow-lg border border-white/10">
-            <img src="carrousel%20scherm2.png" class="h-64 rounded-lg shadow-lg border border-white/10">
-            <img src="carrousel%20scherm3.png" class="h-64 rounded-lg shadow-lg border border-white/10">
-            <img src="carrousel%20scherm4.png" class="h-64 rounded-lg shadow-lg border border-white/10">
-            <!-- Herhaling -->
-            <img src="carrousel%20scherm1.png" class="h-64 rounded-lg shadow-lg border border-white/10">
-            <img src="carrousel%20scherm2.png" class="h-64 rounded-lg shadow-lg border border-white/10">
+    <!-- SCREEN CAROUSEL (NAADLOZE LOOP) -->
+    <section class="py-16 bg-black/30 overflow-hidden relative">
+        <div class="text-center mb-10"><span class="text-gray-500 text-sm uppercase tracking-widest font-bold">Het Platform in Actie</span></div>
+        
+        <div class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#050911] via-[#050911]/80 to-transparent z-10"></div>
+        <div class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#050911] via-[#050911]/80 to-transparent z-10"></div>
+
+        <div class="flex w-max animate-scroll gap-8">
+            <!-- SET 1 - Exacte namen uit je screenshot -->
+            <img src="carrousel-scherm1.png" class="h-64 md:h-80 rounded-xl shadow-2xl border border-white/10">
+            <img src="carrousel-scherm2.png" class="h-64 md:h-80 rounded-xl shadow-2xl border border-white/10">
+            <img src="carrousel-scherm3.png" class="h-64 md:h-80 rounded-xl shadow-2xl border border-white/10">
+            <img src="carrousel-scherm4.png" class="h-64 md:h-80 rounded-xl shadow-2xl border border-white/10">
+            
+            <!-- SET 2 -->
+            <img src="carrousel-scherm1.png" class="h-64 md:h-80 rounded-xl shadow-2xl border border-white/10">
+            <img src="carrousel-scherm2.png" class="h-64 md:h-80 rounded-xl shadow-2xl border border-white/10">
+            <img src="carrousel-scherm3.png" class="h-64 md:h-80 rounded-xl shadow-2xl border border-white/10">
+            <img src="carrousel-scherm4.png" class="h-64 md:h-80 rounded-xl shadow-2xl border border-white/10">
         </div>
     </section>
 
-    <!-- VIDEO -->
+    <!-- VIDEO (WERKEND) -->
     <section class="py-24 px-6 text-center">
         <div class="max-w-4xl mx-auto">
             <h2 class="text-3xl font-bold mb-8">Hoe werkt <span class="text-hpOrange">helloprofs.nl</span>?</h2>
-            <div class="relative rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(32,59,114,0.3)] border border-white/10 aspect-video">
-                 <iframe class="w-full h-full" src="https://www.youtube.com/embed/5h_sK9-hADs?si=control=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="relative rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(32,59,114,0.3)] border border-white/10 aspect-video bg-black">
+                 <!-- Jouw video ID LXb3EKWsInQ -->
+                 <iframe class="w-full h-full" src="https://www.youtube.com/embed/LXb3EKWsInQ?si=control=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </section>
@@ -343,7 +366,7 @@
                     <button class="w-fit px-8 py-3 bg-white text-black font-bold rounded-full hover:scale-105 transition">Start de Spiegel</button>
                 </div>
                 <div class="relative min-h-[300px]">
-                    <!-- Spiegel Image -->
+                    <!-- MATCH MET GITHUB: Schijnzelfstandigheid-Spiegel.png -->
                     <img src="Schijnzelfstandigheid-Spiegel.png" class="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-lighten" alt="Spiegel">
                 </div>
             </div>
@@ -377,8 +400,8 @@
             <p class="text-gray-400 mb-8">Plan een meeting en ontdek in een demo de mogelijkheden. Geen gedoe, direct inzicht.</p>
             
             <div class="glass-panel p-6 rounded-2xl flex items-center gap-6 border-l-4 border-hpOrange">
-                <!-- Tim Foto -->
-                <img src="tim%20profiel.png" class="w-16 h-16 rounded-full object-cover border-2 border-white/20">
+                <!-- MATCH MET GITHUB: tim-profiel.png -->
+                <img src="tim-profiel.png" class="w-16 h-16 rounded-full object-cover border-2 border-white/20">
                 <div>
                     <div class="font-bold text-xl text-white">Tim de Ridder</div>
                     <div class="text-hpOrange text-sm">Account Manager</div>
@@ -387,7 +410,7 @@
             </div>
         </div>
 
-        <!-- HTML Kalender (Werkt altijd) -->
+        <!-- HTML Kalender Widget -->
         <div class="glass-panel p-8 rounded-3xl bg-[#0f1623]">
             <div class="flex justify-between mb-4">
                 <h3 class="font-bold">December 2025</h3>
