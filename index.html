@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="nl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helloprofs - Zekerheid in ZZP Inhuur</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        hpBlue: '#203B72',
+                        hpOrange: '#FE9C6D',
+                        hpDark: '#050911',
+                        hpGlass: 'rgba(32, 59, 114, 0.2)'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    animation: {
+                        'scroll': 'scroll 40s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        scroll: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050911;
+            color: #E2E8F0;
+            overflow-x: hidden;
+        }
+
+        /* Glass Cards */
+        .glass-panel {
+            background: linear-gradient(180deg, rgba(32, 59, 114, 0.15) 0%, rgba(11, 18, 33, 0.6) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(254, 156, 109, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(32, 59, 114, 0.3);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #fff 30%, #FE9C6D 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glow-spot {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Laptop Frame */
+        .laptop-frame {
+            background: #1e1e1e;
+            border-radius: 20px 20px 0 0;
+            padding: 10px 10px 0 10px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            position: relative;
+            z-index: 10;
+        }
+        .laptop-screen {
+            background: #000;
+            border-radius: 6px 6px 0 0;
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 16/10;
+        }
+        .laptop-base {
+            background: #2a2a2a;
+            height: 12px;
+            border-radius: 0 0 20px 20px;
+            width: 110%;
+            margin-left: -5%;
+            position: relative;
+            z-index: 11;
+        }
+
+        #mobile-menu {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        #mobile-menu.open {
+            max-height: 400px;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-hpOrange selection:text-black">
+
+    <!-- Background Ambience -->
+    <div class="glow-spot bg-hpBlue/30 w-[800px] h-[800px] -top-20 -left-20 opacity-40"></div>
+    <div class="glow-spot bg-hpOrange/10 w-[500px] h-[500px] top-40 -right-20 opacity-30"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 left-0 bg-[#050911]/80 backdrop-blur-xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-hpBlue rounded-full flex items-center justify-center font-bold text-white">h</div>
+                <span class="font-display font-bold text-xl tracking-tight text-white">helloprofs.nl</span>
+            </div>
+            
+            <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
+                <a href="#risicos" class="hover:text-white transition-colors">Risico's</a>
+                <a href="#oplossing" class="hover:text-white transition-colors">Oplossing</a>
+                <a href="#demo" class="hover:text-white transition-colors">Demo</a>
+                <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="#" class="hidden md:block text-sm font-semibold text-white hover:text-hpOrange transition">Inloggen</a>
+                <a href="#demo" class="hidden md:block px-6 py-2 rounded-full bg-hpOrange hover:bg-white text-black font-bold transition shadow-[0_0_20px_rgba(254,156,109,0.3)]">
+                    Plan afspraak
+                </a>
+                <button id="menu-btn" class="md:hidden text-white"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="bg-[#0B1221] border-b border-white/10 md:hidden">
+            <div class="flex flex-col p-4 space-y-4 text-center">
+                <a href="#risicos" class="text-gray-300">Risico's</a>
+                <a href="#oplossing" class="text-gray-300">Oplossing</a>
+                <a href="#demo" class="bg-hpOrange text-black py-2 rounded-full font-bold">Plan afspraak</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative pt-40 pb-20 px-6 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+            
+            <div data-aos="fade-right">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-hpBlue/20 border border-hpBlue/30 text-hpOrange text-xs font-bold uppercase tracking-wider mb-8">
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    Betrouwbaar sinds 2016
+                </div>
+                
+                <h1 class="font-display text-5xl md:text-7xl font-bold leading-[1.1] mb-6">
+                    Jij kiest de zzp'ers, <br>
+                    <span class="text-gradient">wij de zekerheid.</span>
+                </h1>
+                
+                <p class="text-lg text-gray-400 mb-8 max-w-lg leading-relaxed">
+                    Helloprofs brengt je risico’s in kaart en zorgt dat jouw organisatie voldoet aan de regels rond zzp-inhuur. 
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#opdrachtgever" class="px-8 py-4 bg-hpBlue hover:bg-hpBlue/80 text-white rounded-full font-bold text-center transition shadow-lg shadow-hpBlue/20">
+                        Ik ben opdrachtgever
+                    </a>
+                    <a href="#zzp" class="px-8 py-4 bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-full font-bold text-center backdrop-blur-md">
+                        Ik ben opdrachtnemer
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hero Visual -->
+            <div class="relative animate-float" data-aos="fade-left">
+                <div class="absolute -inset-4 bg-gradient-to-r from-hpBlue to-hpOrange rounded-full blur-3xl opacity-20"></div>
+                <div class="laptop-frame mx-auto max-w-lg w-full">
+                    <div class="laptop-screen">
+                        <!-- Bestandsnaam 1: De laptop screenshot -->
+                        <img src="oplossing-wet-DBA-voor-opdrachtgevers-en-opdrachtnemers.png" class="w-full h-full object-cover" alt="Helloprofs Dashboard">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#050911]/60 to-transparent pointer-events-none"></div>
+                    </div>
+                </div>
+                <div class="laptop-base mx-auto max-w-lg"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CLIENT LOGO CAROUSEL -->
+    <div class="w-full border-y border-white/5 bg-white/[0.02] py-8 overflow-hidden">
+        <div class="flex w-[200%] animate-scroll gap-16 items-center">
+            <!-- Logos -->
+            <img src="Koole-Bestratingen-logo.png" class="h-12 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
+            <img src="AW-groep-logo.png" class="h-12 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
+            <img src="MNE-logo.png" class="h-12 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
+            <img src="MdB-Transport-logo.png" class="h-12 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
+            <img src="Van-Dijk-Fiscaal-Advies-logo.png" class="h-12 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
+            <img src="Logo-TK-Advocaten-Notarissen.jpg" class="h-12 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition mix-blend-screen">
+            
+            <!-- Herhaling voor loop -->
+            <img src="Koole-Bestratingen-logo.png" class="h-12 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
+            <img src="AW-groep-logo.png" class="h-12 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
+            <img src="MNE-logo.png" class="h-12 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
+            <img src="MdB-Transport-logo.png" class="h-12 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition">
+        </div>
+    </div>
+
+    <!-- PAIN SECTION (Wet DBA) -->
+    <section id="risicos" class="py-24 bg-[#080d19] relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="max-w-3xl mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 font-display text-white">
+                    Risico's zijn <span class="text-red-500">té groot</span> om te negeren.
+                </h2>
+                <p class="text-gray-400 text-lg">
+                    Vanaf januari 2025 handhaaft de Belastingdienst strenger. Schijnzelfstandigheid kan leiden tot faillissement.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-panel p-8 rounded-3xl">
+                    <div class="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center text-2xl mb-4">💰</div>
+                    <h3 class="text-xl font-bold mb-2">Werkgeverslasten</h3>
+                    <p class="text-gray-400 text-sm">Naheffing werknemerspremies, loonheffingen en pensioenafdrachten.</p>
+                </div>
+                <div class="glass-panel p-8 rounded-3xl border-hpOrange/40">
+                    <div class="w-12 h-12 bg-hpOrange/20 rounded-full flex items-center justify-center text-2xl mb-4">⚠️</div>
+                    <h3 class="text-xl font-bold mb-2">Directe Boetes</h3>
+                    <p class="text-gray-400 text-sm">Opgelegde boetes en correctieverplichtingen vanuit de Belastingdienst.</p>
+                </div>
+                <div class="glass-panel p-8 rounded-3xl">
+                    <div class="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center text-2xl mb-4">⚖️</div>
+                    <h3 class="text-xl font-bold mb-2">Arbeidsrechtelijk</h3>
+                    <p class="text-gray-400 text-sm">Gevolgen zoals verplichte doorbetaling bij ziekte en ontslagbescherming.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUTION (Bento Grid) -->
+    <section id="oplossing" class="py-24 relative">
+        <div class="glow-spot bg-hpBlue/20 w-full h-[500px] top-1/2 left-0 -translate-y-1/2"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 font-display">Alles helder in beeld</h2>
+                <p class="text-gray-400">Onze modules zorgen voor een waterdicht dossier.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-6 md:grid-rows-2 gap-6 md:h-[600px]">
+                
+                <!-- DOSSIERS (Large) -->
+                <div class="md:col-span-4 glass-panel rounded-3xl p-8 relative overflow-hidden group">
+                    <div class="relative z-10 max-w-sm">
+                        <h3 class="text-2xl font-bold mb-2 text-white">Complete dossiers</h3>
+                        <p class="text-gray-400 text-sm">Inkoopopdrachten, offertes en facturen in één dossiernummer.</p>
+                    </div>
+                    <div class="absolute bottom-[-10%] right-[-5%] w-[60%] transition group-hover:scale-105">
+                        <!-- Dossier Image -->
+                        <img src="Homepage-Complete-dossiers-7rofqdko1rkw39e40.png" class="rounded-lg shadow-2xl" alt="Dossiers">
+                    </div>
+                </div>
+
+                <!-- CONTRACTEN (Tall) -->
+                <div class="md:col-span-2 md:row-span-2 glass-panel rounded-3xl p-8 flex flex-col items-center text-center relative overflow-hidden">
+                    <h3 class="text-2xl font-bold mb-4">Solide Contracten</h3>
+                    <p class="text-gray-400 text-sm mb-6">Automatisch gegenereerde contracten conform wet DBA.</p>
+                    <!-- Contract Image -->
+                    <img src="Homepage-Solide-contractvorming-xm3p0ybz90zmwg.png" class="w-3/4 shadow-2xl rounded-lg absolute bottom-0 transition hover:-translate-y-2" alt="Contract">
+                </div>
+
+                <!-- ANALYSE (Small) -->
+                <div class="md:col-span-2 glass-panel rounded-3xl p-6 flex items-center gap-4 group">
+                    <!-- Analyse Image -->
+                    <img src="Homepage-fiscaal-juridische-analyse-hckpew1cafouvgds.png" class="w-16 h-16 object-contain" alt="Weegschaal">
+                    <div>
+                        <h3 class="font-bold text-white">Fiscale Analyse</h3>
+                        <p class="text-xs text-gray-400">Directe check op arbeidsrelatie.</p>
+                    </div>
+                </div>
+
+                <!-- STAPPEN (Small) -->
+                <div class="md:col-span-2 glass-panel rounded-3xl p-6 flex items-center gap-4 bg-hpBlue/20 border-hpOrange/30">
+                    <!-- Stappen Image -->
+                    <img src="Homepage-Zet-aantoonbare-stappen-xm3p0ybz90zmwg.png" class="w-16 h-16 object-contain" alt="Trap">
+                    <div>
+                        <h3 class="font-bold text-hpOrange">Zet stappen</h3>
+                        <p class="text-xs text-gray-300">Toon aan dat je compliant bent.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CARROUSEL SCREENS (Jouw 4 screenshots) -->
+    <section class="py-10 bg-black/20 overflow-hidden">
+        <div class="text-center mb-8"><span class="text-gray-500 text-sm uppercase tracking-widest">Het Platform</span></div>
+        <div class="flex w-[200%] animate-scroll gap-8">
+            <!-- Let op de %20 voor spaties -->
+            <img src="carrousel%20scherm1.png" class="h-64 rounded-lg shadow-lg border border-white/10">
+            <img src="carrousel%20scherm2.png" class="h-64 rounded-lg shadow-lg border border-white/10">
+            <img src="carrousel%20scherm3.png" class="h-64 rounded-lg shadow-lg border border-white/10">
+            <img src="carrousel%20scherm4.png" class="h-64 rounded-lg shadow-lg border border-white/10">
+            <!-- Herhaling -->
+            <img src="carrousel%20scherm1.png" class="h-64 rounded-lg shadow-lg border border-white/10">
+            <img src="carrousel%20scherm2.png" class="h-64 rounded-lg shadow-lg border border-white/10">
+        </div>
+    </section>
+
+    <!-- VIDEO -->
+    <section class="py-24 px-6 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8">Hoe werkt <span class="text-hpOrange">helloprofs.nl</span>?</h2>
+            <div class="relative rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(32,59,114,0.3)] border border-white/10 aspect-video">
+                 <iframe class="w-full h-full" src="https://www.youtube.com/embed/5h_sK9-hADs?si=control=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPIEGEL (Interactive Tool) -->
+    <section class="py-24 px-6">
+        <div class="max-w-6xl mx-auto glass-panel border-none bg-gradient-to-r from-hpOrange to-purple-600 p-[1px] rounded-[32px]">
+            <div class="bg-[#0B1221] rounded-[31px] overflow-hidden grid md:grid-cols-2">
+                <div class="p-10 flex flex-col justify-center">
+                    <h2 class="text-3xl font-bold mb-6">Spiegel jouw samenwerking aan rechtspraak</h2>
+                    <ul class="space-y-4 mb-8 text-gray-300">
+                        <li>1. Beantwoord 3 korte vragen</li>
+                        <li>2. Vergelijk met rechtszaken</li>
+                        <li>3. Ontvang gratis PDF rapport</li>
+                    </ul>
+                    <button class="w-fit px-8 py-3 bg-white text-black font-bold rounded-full hover:scale-105 transition">Start de Spiegel</button>
+                </div>
+                <div class="relative min-h-[300px]">
+                    <!-- Spiegel Image -->
+                    <img src="Schijnzelfstandigheid-Spiegel.png" class="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-lighten" alt="Spiegel">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOCIAL PROOF (Quotes) -->
+    <section class="py-20">
+        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-8">
+            <div class="glass-panel p-8 rounded-2xl">
+                <p class="italic text-gray-300 mb-4">"Helloprofs.nl is heel belangrijk voor opdrachtgevers die meer zekerheid willen dat er in overeenstemming met de wet DBA wordt gehandeld."</p>
+                <div class="flex items-center gap-3">
+                    <img src="Van-Dijk-Fiscaal-Advies-logo.png" class="h-8 object-contain">
+                    <div class="text-sm font-bold text-white">VAN DIJK <span class="text-hpOrange block text-xs font-normal">Fiscaal Advies</span></div>
+                </div>
+            </div>
+            <div class="glass-panel p-8 rounded-2xl">
+                <p class="italic text-gray-300 mb-4">"Het platform is praktisch en is ingericht om opdrachtgevers en zzp’ers op een zo veilig mogelijke manier te laten samenwerken."</p>
+                <div class="flex items-center gap-3">
+                    <img src="Logo-TK-Advocaten-Notarissen.jpg" class="h-8 rounded-full">
+                    <div class="text-sm font-bold text-white">TK Advocaten <span class="text-hpOrange block text-xs font-normal">Notarissen</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT / KALENDER -->
+    <section id="demo" class="py-24 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+            <h2 class="text-4xl font-bold mb-6">Zet de eerste stap</h2>
+            <p class="text-gray-400 mb-8">Plan een meeting en ontdek in een demo de mogelijkheden. Geen gedoe, direct inzicht.</p>
+            
+            <div class="glass-panel p-6 rounded-2xl flex items-center gap-6 border-l-4 border-hpOrange">
+                <!-- Tim Foto -->
+                <img src="tim%20profiel.png" class="w-16 h-16 rounded-full object-cover border-2 border-white/20">
+                <div>
+                    <div class="font-bold text-xl text-white">Tim de Ridder</div>
+                    <div class="text-hpOrange text-sm">Account Manager</div>
+                    <a href="mailto:business@helloprofs.nl" class="text-gray-400 text-xs mt-1 block hover:text-white">business@helloprofs.nl</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- HTML Kalender (Werkt altijd) -->
+        <div class="glass-panel p-8 rounded-3xl bg-[#0f1623]">
+            <div class="flex justify-between mb-4">
+                <h3 class="font-bold">December 2025</h3>
+                <div class="space-x-2"><button class="bg-white/10 w-8 h-8 rounded hover:bg-white/20">←</button><button class="bg-white/10 w-8 h-8 rounded hover:bg-white/20">→</button></div>
+            </div>
+            <div class="grid grid-cols-7 gap-2 text-center text-sm mb-4">
+                <span class="text-gray-500">ma</span><span class="text-gray-500">di</span><span class="text-gray-500">wo</span><span class="text-gray-500">do</span><span class="text-gray-500">vr</span><span class="text-gray-500">za</span><span class="text-gray-500">zo</span>
+                <span class="p-2"></span><span class="p-2"></span><span class="p-2 text-gray-600">1</span><span class="p-2 text-gray-600">2</span><span class="p-2 text-gray-600">3</span><span class="p-2 text-gray-600">4</span><span class="p-2 text-gray-600">5</span>
+                <button class="p-2 bg-hpBlue rounded hover:bg-hpBlue/80">8</button>
+                <button class="p-2 bg-white/5 rounded hover:bg-white/10">9</button>
+                <button class="p-2 bg-white/5 rounded hover:bg-white/10">10</button>
+                <button class="p-2 bg-white/5 rounded hover:bg-white/10">11</button>
+                <button class="p-2 bg-white/5 rounded hover:bg-white/10">12</button>
+                <span class="p-2 text-gray-600">13</span><span class="p-2 text-gray-600">14</span>
+            </div>
+            <div class="pt-4 border-t border-white/10">
+                <div class="text-xs text-gray-400 mb-2">Tijden voor 8 dec:</div>
+                <div class="flex gap-2">
+                    <button class="px-3 py-1 bg-white/5 rounded text-sm hover:border hover:border-hpOrange border border-transparent">09:30</button>
+                    <button class="px-3 py-1 bg-hpOrange text-black rounded text-sm font-bold">13:00</button>
+                    <button class="px-3 py-1 bg-white/5 rounded text-sm hover:border hover:border-hpOrange border border-transparent">15:30</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 max-w-3xl mx-auto px-6">
+        <h2 class="text-2xl font-bold text-center mb-8">Veelgestelde vragen</h2>
+        <div class="space-y-4">
+            <details class="glass-panel p-4 rounded-xl cursor-pointer">
+                <summary class="font-bold text-white">Is het platform DBA-proof?</summary>
+                <p class="text-gray-400 mt-2 text-sm">Jazeker, het hele proces is ingericht op de richtlijnen van de Belastingdienst.</p>
+            </details>
+            <details class="glass-panel p-4 rounded-xl cursor-pointer">
+                <summary class="font-bold text-white">Wat kost een demo?</summary>
+                <p class="text-gray-400 mt-2 text-sm">Een demo is volledig gratis en vrijblijvend.</p>
+            </details>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black/50 border-t border-white/5 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-6 text-center md:text-left grid md:grid-cols-4 gap-8">
+            <div class="col-span-2">
+                <span class="font-bold text-xl block mb-4">helloprofs.nl</span>
+                <p class="text-gray-500 text-sm">Wij zorgen voor zekerheid in een dynamische arbeidsmarkt.</p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">Contact</h4>
+                <ul class="text-gray-500 text-sm space-y-2">
+                    <li>hello@helloprofs.nl</li>
+                    <li>(+31) 085 27 30 220</li>
+                    <li>Zwarteweg 110C, Aalsmeer</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">Info</h4>
+                <ul class="text-gray-500 text-sm space-y-2">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Algemene Voorwaarden</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        AOS.init({once: true, duration: 800});
+        document.getElementById('menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('open');
+        });
+    </script>
+</body>
+</html>
